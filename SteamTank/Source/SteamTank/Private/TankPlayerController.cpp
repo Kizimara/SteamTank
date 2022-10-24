@@ -30,7 +30,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 
 	AimCrosshair();
 
-	UE_LOG(LogTemp, Warning, TEXT("PLayer controlller ticking"));
+	//UE_LOG(LogTemp, Warning, TEXT("PLayer controlller ticking"));
 }
 
 
@@ -48,12 +48,12 @@ void ATankPlayerController::AimCrosshair()
 	FVector HitLocation; // out param
 	if(GetSightRayHitLocation(HitLocation))
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *HitLocation.ToString());
+		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *HitLocation.ToString());
 		//
 	}
 }
 
-bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) const
+bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 {
 	int32 ViewPortSizeX, ViewPortSizeY;
 
@@ -65,7 +65,8 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 
 	if(GetLookDirection(ScreenLocation, LookDirection))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *LookDirection.ToString());
+		// Line Trace along that LookDirection, and see what we hit
+		GetLookVectorHitLocation(LookDirection, HitLocation);
 	}
 
 	return true;
@@ -82,4 +83,30 @@ bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& 
 		CameraWorldLocation,
 		LookDirection
 	);
+}
+
+
+bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
+{
+	FHitResult HitResult;
+	
+	auto StartLocation = PlayerCameraManager->GetCameraLocation();
+	auto EndLocation = StartLocation + (LookDirection * LineTraceRange);
+
+	if(GetWorld()->LineTraceSingleByChannel
+		(
+			HitResult,
+			StartLocation,
+			EndLocation,
+			ECollisionChannel::ECC_Visibility)
+		)
+		{
+		HitLocation = HitResult.Location;
+			return true;
+		}
+	else
+	{
+		return false;
+	}
+		
 }
