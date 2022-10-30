@@ -19,8 +19,15 @@ public:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void SetBarrelReference (UStaticMeshComponent* BarrelToSet);
+
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	void AimAt(FVector HitLocation);
+
+
+private:
+
+	UStaticMeshComponent* Barrel = nullptr;
 };
