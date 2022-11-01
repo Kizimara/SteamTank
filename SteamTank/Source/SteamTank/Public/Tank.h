@@ -8,6 +8,9 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+
+class UTankBarrel;
+
 UCLASS()
 class STEAMTANK_API ATank : public APawn
 {
@@ -18,7 +21,7 @@ public:
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable, Category = Setup )
-	void SetBarrelReferences(UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReferences(UTankBarrel* BarrelToSet);
 
 protected:
 

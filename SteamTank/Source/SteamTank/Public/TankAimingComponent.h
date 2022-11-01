@@ -3,10 +3,14 @@
 #pragma once
 
 #include "Engine.h"
+#include "TankBarrel.h"
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
 
+class UTankBarrel;
+
+//Include param for Barrel properties
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class STEAMTANK_API UTankAimingComponent : public UActorComponent
 {
@@ -16,7 +20,7 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void SetBarrelReference (UStaticMeshComponent* BarrelToSet);
+	void SetBarrelReference (UTankBarrel* BarrelToSet);
 
 	//TODO add SetBarrelReference
 
@@ -25,7 +29,7 @@ public:
 
 private:
 
-	UStaticMeshComponent* Barrel = nullptr;
+	UTankBarrel* Barrel = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
 };
