@@ -1,9 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Engine.h"
 #include "TankBarrel.h"
 
-void UTankBarrel::Elevate(float DegreesPerSecond)
+
+
+
+void UTankBarrel::Elevate(float RelativeSpeed)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Barrel Elevate is called at speed %f"), DegreesPerSecond);
+	auto ElevationChange = RelativeSpeed * MaxDegreesPerSecond * GetWorld()->DeltaTimeSeconds;
+
+	
+	auto RawNewElevation = GetRelativeRotation().Pitch + ElevationChange;
+
+	SetRelativeRotation(FRotator(RawNewElevation, 0, 0));
 }
+
+

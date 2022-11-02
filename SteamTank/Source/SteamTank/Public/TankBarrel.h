@@ -6,17 +6,15 @@
 #include "Components/StaticMeshComponent.h"
 #include "TankBarrel.generated.h"
 
-/**
- * 
- */
-UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
+
+UCLASS(meta = (BlueprintSpawnableComponent))
 class STEAMTANK_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()
 	
 public:
 
-	void Elevate(float DegreesPerSecond);
+	void Elevate(float RelativeSpeed);
 
 private:
 
@@ -28,4 +26,5 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 	float MaxAngleLowering = 10.f;
+
 };
