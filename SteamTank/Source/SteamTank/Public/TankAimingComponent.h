@@ -3,12 +3,12 @@
 #pragma once
 
 #include "Engine.h"
-#include "TankBarrel.h"
 #include "Components/ActorComponent.h"
 #include "TankAimingComponent.generated.h"
 
 
 class UTankBarrel;
+class UTankTurret;
 
 //Include param for Barrel properties
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -21,6 +21,7 @@ public:
 	UTankAimingComponent();
 
 	void SetBarrelReference (UTankBarrel* BarrelToSet);
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 	//TODO add SetBarrelReference
 
@@ -30,6 +31,8 @@ public:
 private:
 
 	UTankBarrel* Barrel = nullptr;
+
+	UTankTurret* Turret = nullptr;
 
 	void MoveBarrelTowards(FVector AimDirection);
 };
