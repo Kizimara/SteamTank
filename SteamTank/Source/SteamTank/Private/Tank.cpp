@@ -3,6 +3,8 @@
 #include "Engine.h"
 #include "TankBarrel.h"
 #include "TankTurret.h"
+#include "Projectile.h"
+#include "GameFramework/Actor.h"
 #include "TankAimingComponent.h"
 #include "Tank.h"
 
@@ -20,6 +22,8 @@ ATank::ATank()
 void ATank::SetBarrelReferences(UTankBarrel* BarrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+
+	Barrel = BarrelToSet;
 }
 
 void ATank::SetTurretReferences(UTankTurret* TurretToSet)
@@ -27,11 +31,30 @@ void ATank::SetTurretReferences(UTankTurret* TurretToSet)
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
 
+
+
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ATank::Fire()
+{
+	
+
+	if (!Barrel) { return; }
+	// else spawn pt from socet at barrel
+
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>
+	(
+		ProjectileBP,
+		Barrel->GetSocketLocation(FName("Projectile")),
+		Barrel->GetSocketRotation(FName("Projectile"))
+	);
+
+	Projectile->LaunchPT(LaunchSpeed);
 }
 
 

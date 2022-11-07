@@ -11,6 +11,7 @@
 // Forward Declarations
 class UTankBarrel;
 class UTankTurret;
+class AProjectile;
 class UTankAimingComponent;
 
 UCLASS()
@@ -20,13 +21,19 @@ class STEAMTANK_API ATank : public APawn
 
 public:
 
-	void AimAt(FVector HitLocation);
+	
 
 	UFUNCTION(BlueprintCallable, Category = Setup )
 	void SetBarrelReferences(UTankBarrel* BarrelToSet);
 
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretReferences(UTankTurret* TurretToSet);
+
+	UFUNCTION(BlueprintCallable)
+	void Fire();
+
+
+	void AimAt(FVector HitLocation);
 
 protected:
 
@@ -45,6 +52,11 @@ private:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 4000.f;
+	float LaunchSpeed = 8000.f;
 
+
+	UPROPERTY(EditAnywhere, Category = setup)
+	TSubclassOf<AProjectile> ProjectileBP;
+
+	UTankBarrel* Barrel = nullptr;
 };
