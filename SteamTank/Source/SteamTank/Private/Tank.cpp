@@ -4,6 +4,7 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Projectile.h"
+#include "TankTrack.h"
 #include "GameFramework/Actor.h"
 #include "TankAimingComponent.h"
 #include "Tank.h"
@@ -32,6 +33,12 @@ void ATank::SetTurretReferences(UTankTurret* TurretToSet)
 }
 
 
+void ATank::SetTrackReferences(UTankTrack* TrackToSet)
+{
+	TankAimingComponent->SetTrackReference(TrackToSet);
+}
+
+
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
@@ -44,17 +51,23 @@ void ATank::Fire()
 {
 	
 
-	if (!Barrel) { return; }
-	// else spawn pt from socet at barrel
+	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 
-	auto Projectile = GetWorld()->SpawnActor<AProjectile>
-	(
-		ProjectileBP,
-		Barrel->GetSocketLocation(FName("Projectile")),
-		Barrel->GetSocketRotation(FName("Projectile"))
-	);
+	if (Barrel && IsReloaded)
+	{
+		// else spawn pt from socet at barrel
 
-	Projectile->LaunchPT(LaunchSpeed);
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>
+			(
+				ProjectileBP,
+				Barrel->GetSocketLocation(FName("Projectile")),
+				Barrel->GetSocketRotation(FName("Projectile"))
+				);
+
+		Projectile->LaunchPT(LaunchSpeed);
+
+		LastFireTime = FPlatformTime::Seconds();
+	}
 }
 
 
