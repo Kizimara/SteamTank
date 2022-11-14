@@ -12,8 +12,8 @@
 class UTankBarrel;
 class UTankTurret;
 class AProjectile;
-class UTankTrack;
 class UTankAimingComponent;
+class UTankMovementComponent;
 
 UCLASS()
 class STEAMTANK_API ATank : public APawn
@@ -30,18 +30,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Setup)
 	void SetTurretReferences(UTankTurret* TurretToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
-	void SetTrackReferences(UTankTrack* TrackToSet);
-
 	UFUNCTION(BlueprintCallable)
 	void Fire();
-
 
 	void AimAt(FVector HitLocation);
 
 protected:
 
 	UTankAimingComponent* TankAimingComponent = nullptr;
+
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* MovementComponent = nullptr;
 
 
 private:

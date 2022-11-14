@@ -4,7 +4,7 @@
 #include "TankBarrel.h"
 #include "TankTurret.h"
 #include "Projectile.h"
-#include "TankTrack.h"
+#include "TankMovementComponent.h"
 #include "GameFramework/Actor.h"
 #include "TankAimingComponent.h"
 #include "Tank.h"
@@ -17,7 +17,6 @@ ATank::ATank()
 
 	// no need to protect points as added at construction
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Component"));
-
 }
 
 void ATank::SetBarrelReferences(UTankBarrel* BarrelToSet)
@@ -31,14 +30,6 @@ void ATank::SetTurretReferences(UTankTurret* TurretToSet)
 {
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
-
-
-void ATank::SetTrackReferences(UTankTrack* TrackToSet)
-{
-	TankAimingComponent->SetTrackReference(TrackToSet);
-}
-
-
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
@@ -69,6 +60,8 @@ void ATank::Fire()
 		LastFireTime = FPlatformTime::Seconds();
 	}
 }
+
+
 
 
 // Called to bind functionality to input

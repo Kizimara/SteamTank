@@ -22,5 +22,5 @@ public:
 
 	//Max force in newtones
 	UPROPERTY(EditDefaultsOnly)
-	float MaxDrivingForce = 400000.f;
+	float MaxDrivingForce = 45000000.f;
 };

@@ -25,6 +25,6 @@ private:
 	float MaxAngleElevate = 20.f;
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	float MaxAngleLowering = -10.f;
+	float MaxAngleLowering = 0.f;
 
 };

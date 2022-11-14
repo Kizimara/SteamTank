@@ -11,16 +11,6 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
-
-	auto ControlledTank = GetControlledTank();
-	if (!ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Tank do not exist"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("We get the tank %s"), *(ControlledTank->GetName()));
-	}
 }
 
 
@@ -30,8 +20,6 @@ void ATankPlayerController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	AimCrosshair();
-
-	//UE_LOG(LogTemp, Warning, TEXT("PLayer controlller ticking"));
 }
 
 
