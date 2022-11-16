@@ -24,10 +24,10 @@ public:
 
 	
 
-	UFUNCTION(BlueprintCallable, Category = Setup )
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetBarrelReferences(UTankBarrel* BarrelToSet);
 
-	UFUNCTION(BlueprintCallable, Category = Setup)
+	UFUNCTION(BlueprintCallable, Category = "Setup")
 	void SetTurretReferences(UTankTurret* TurretToSet);
 
 	UFUNCTION(BlueprintCallable)
@@ -37,6 +37,7 @@ public:
 
 protected:
 
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)
@@ -54,13 +55,13 @@ private:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	UPROPERTY(EditDefaultsOnly, Category = setup)
+	UPROPERTY(EditDefaultsOnly, Category = "setup")
 	TSubclassOf<AProjectile> ProjectileBP;
 	
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 8000.f;
 
-	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float ReloadTimeInSeconds = 3.f;
 
 	UTankBarrel* Barrel = nullptr;

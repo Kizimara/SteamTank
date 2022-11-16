@@ -16,11 +16,11 @@ class STEAMTANK_API UTankTrack : public UStaticMeshComponent
 	
 
 public:
-	UFUNCTION(BlueprintCallable, Category = Input)
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
 
 
 	//Max force in newtones
 	UPROPERTY(EditDefaultsOnly)
-	float MaxDrivingForce = 45000000.f;
+	float MaxDrivingForce = 40000000.f;
 };

@@ -12,10 +12,14 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
 
 void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed)
 {
-	auto TankName = GetOwner()->GetName();
-	auto TankVelocity = MoveVelocity.ToString();
+	auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
+	auto AIForwardIntention = MoveVelocity.GetSafeNormal();
 
-	UE_LOG(LogTemp, Warning, TEXT("%s Tank, move velocity is %s "), *TankName , *TankVelocity );
+	auto SkylarForForward = FVector::DotProduct(TankForward, AIForwardIntention);
+	IntendMoveForward(SkylarForForward);
+
+	auto ProductForTurn = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+	IntendTurnRight(ProductForTurn);
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
