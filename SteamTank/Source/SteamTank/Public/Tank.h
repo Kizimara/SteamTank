@@ -22,14 +22,6 @@ class STEAMTANK_API ATank : public APawn
 
 public:
 
-	
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetBarrelReferences(UTankBarrel* BarrelToSet);
-
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void SetTurretReferences(UTankTurret* TurretToSet);
-
 	UFUNCTION(BlueprintCallable)
 	void Fire();
 
@@ -51,9 +43,6 @@ private:
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditDefaultsOnly, Category = "setup")
 	TSubclassOf<AProjectile> ProjectileBP;
