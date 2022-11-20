@@ -10,9 +10,7 @@
 
 // Forward Declarations
 class UTankBarrel;
-class UTankTurret;
 class AProjectile;
-class UTankAimingComponent;
 
 UCLASS()
 class STEAMTANK_API ATank : public APawn
@@ -23,13 +21,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void Fire();
-
-	void AimAt(FVector HitLocation);
-
-protected:
-
-	UPROPERTY(BlueprintReadOnly)
-	UTankAimingComponent* TankAimingComponent = nullptr;
 
 private:
 

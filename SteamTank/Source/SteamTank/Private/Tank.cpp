@@ -2,10 +2,8 @@
 
 #include "Engine.h"
 #include "TankBarrel.h"
-#include "TankTurret.h"
 #include "Projectile.h"
 #include "GameFramework/Actor.h"
-#include "TankAimingComponent.h"
 #include "Tank.h"
 
 // Sets default values
@@ -20,14 +18,8 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) { return; }
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
-}
 
 void ATank::Fire()
 {

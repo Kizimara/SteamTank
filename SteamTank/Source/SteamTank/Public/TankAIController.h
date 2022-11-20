@@ -7,14 +7,13 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-
 class ATank;
 
 UCLASS()
 class STEAMTANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-
+	
 
 private:
 
@@ -22,6 +21,6 @@ private:
 
 	virtual void Tick(float) override;
 
-	float AcceptenceRadius = 3000.f;
+	float AcceptenceRadius = 1000.f;
 	
 };
