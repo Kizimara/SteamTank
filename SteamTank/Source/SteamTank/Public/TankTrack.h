@@ -22,5 +22,10 @@ public:
 
 	//Max force in newtones
 	UPROPERTY(EditDefaultsOnly)
-	float MaxDrivingForce = 40000000.f;
+	float MaxDrivingForce = 20000000.f;
+
+private:
+	UTankTrack();
+
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 };

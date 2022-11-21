@@ -18,15 +18,13 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto SkylarForForward = FVector::DotProduct(TankForward, AIForwardIntention);
 	IntendMoveForward(SkylarForForward);
 
-	auto ProductForTurn = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
+	auto ProductForTurn = FVector::CrossProduct(AIForwardIntention, TankForward).Z;
 	IntendTurnRight(ProductForTurn);
 }
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	if (!ensure(LeftTrack && RightTrack)) {
-		UE_LOG(LogTemp, Warning, TEXT("items were not received"));
-		return; }
+	if (!ensure(LeftTrack && RightTrack)) { return; }
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
 
@@ -34,7 +32,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-	if (!ensure(LeftTrack && RightTrack)) {return;}
+	if (!ensure(LeftTrack && RightTrack)) { return;}
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }

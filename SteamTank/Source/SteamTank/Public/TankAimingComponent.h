@@ -38,6 +38,8 @@ public:
 
 	EFiringState GetFiringState() const;
 
+	
+
 protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "State")
@@ -54,6 +56,8 @@ private:
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	bool IsBarrelMoving();
+
 	UTankBarrel* Barrel = nullptr;
 
 	UTankTurret* Turret = nullptr;
@@ -68,4 +72,6 @@ private:
 	TSubclassOf<AProjectile> ProjectileBP;
 
 	double LastFireTime = 0;
+
+	FVector AimDirection;
 };
