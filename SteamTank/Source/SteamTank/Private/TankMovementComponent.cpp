@@ -18,7 +18,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool
 	auto SkylarForForward = FVector::DotProduct(TankForward, AIForwardIntention);
 	IntendMoveForward(SkylarForForward);
 
-	auto ProductForTurn = FVector::CrossProduct(AIForwardIntention, TankForward).Z;
+	auto ProductForTurn = FVector::CrossProduct(AIForwardIntention,TankForward).Z;
 	IntendTurnRight(ProductForTurn);
 }
 
