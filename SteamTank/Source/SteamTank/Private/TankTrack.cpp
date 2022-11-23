@@ -38,7 +38,7 @@ void UTankTrack::ApplySideWaysForce()
 	auto DeltaTime = GetWorld()->GetTimeSeconds();
 	auto CorrectionAcceleration = -TrackSlide / DeltaTime * GetRightVector();
 	auto Root = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
-	auto CorrectionForce = (Root->GetMass() * CorrectionAcceleration) / 2; //  /2 Cause two tracks
+	auto CorrectionForce = (Root->GetMass() * CorrectionAcceleration) * 2; //  /2 Cause two tracks
 
 	Root->AddForce(CorrectionForce);
 }

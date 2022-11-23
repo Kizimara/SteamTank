@@ -29,7 +29,11 @@ void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* Tur
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	if((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeInSeconds)
+	if(Ammo <= 0)
+	{
+		FiringState = EFiringState::Empty;
+	}
+	else if((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeInSeconds)
 	{
 		FiringState = EFiringState::Reloading;
 	}
@@ -85,7 +89,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimAtDirection)
 
 	Barrel->Elevate(DeltaRotator.Pitch);
 
-	if (DeltaRotator.Yaw < 180)
+	if (FMath::Abs(DeltaRotator.Yaw) < 180)
 	{
 		Turret->Rotate(DeltaRotator.Yaw);
 	}
@@ -99,22 +103,21 @@ void UTankAimingComponent::Fire()
 {
 	if (!ensure(Barrel && ProjectileBP)) { return; }
 
-	//bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+		if (FiringState != EFiringState::Reloading && FiringState != EFiringState::Empty)
 
+		{// else spawn pt from socet at barrel
+			auto Projectile = GetWorld()->SpawnActor<AProjectile>
+				(
+					ProjectileBP,
+					Barrel->GetSocketLocation(FName("Projectile")),
+					Barrel->GetSocketRotation(FName("Projectile"))
+					);
 
-	if (FiringState != EFiringState::Reloading)
-		
-	{// else spawn pt from socet at barrel
-		auto Projectile = GetWorld()->SpawnActor<AProjectile>
-			(
-				ProjectileBP,
-				Barrel->GetSocketLocation(FName("Projectile")),
-				Barrel->GetSocketRotation(FName("Projectile"))
-				);
-
-		Projectile->LaunchPT(LaunchSpeed);
-		LastFireTime = GetWorld()->GetTimeSeconds();
-	}
+			Projectile->LaunchPT(LaunchSpeed);
+			LastFireTime = GetWorld()->GetTimeSeconds();
+			Ammo -= 1;
+		}
+	
 }
 
 bool UTankAimingComponent::IsBarrelMoving()
@@ -124,4 +127,9 @@ bool UTankAimingComponent::IsBarrelMoving()
 	auto BarrelForward = Barrel->GetForwardVector();
 	
 	return !BarrelForward.Equals(AimDirection, 0.01f);
+}
+
+int UTankAimingComponent::GetAmmo() const
+{
+	return Ammo;
 }

@@ -13,6 +13,10 @@ class STEAMTANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
+protected:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+	float AcceptenceRadius = 8000.f;
 
 private:
 
@@ -20,6 +24,6 @@ private:
 
 	virtual void Tick(float) override;
 
-	float AcceptenceRadius = 1000.f;
+	
 	
 };
