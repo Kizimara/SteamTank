@@ -129,7 +129,7 @@ bool UTankAimingComponent::IsBarrelMoving()
 	return !BarrelForward.Equals(AimDirection, 0.01f);
 }
 
-int UTankAimingComponent::GetAmmo() const
+int32 UTankAimingComponent::GetAmmo() const
 {
 	return Ammo;
 }
