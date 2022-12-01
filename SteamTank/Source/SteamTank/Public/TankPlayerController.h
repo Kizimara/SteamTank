@@ -24,6 +24,11 @@ private:
 
 	virtual void Tick(float) override;
 
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OutControll();
+
 	void AimCrosshair();
 
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;

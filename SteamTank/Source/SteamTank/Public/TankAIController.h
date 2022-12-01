@@ -24,6 +24,10 @@ private:
 
 	virtual void Tick(float) override;
 
-	
+
+	virtual void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnPossessedTankDeath();
 	
 };
